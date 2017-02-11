@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">DownloadDemo</string>
+
+    <string name="download_mg">下载图片</string>
+    <string name="download_tml">下载Html</string>
+    <string name="download_file">下载文件</string>
+
+    <string name="img_url">请输入网络图片地址</string>
+    <string name="img_btn">获取图片</string>
+
+    <string name="html_url">请输入网址</string>
+    <string name="html_btn">获取网页</string>
+
+    <string name="file_url">请输入下载文件地址</string>
+    <string name="file_btn">获取文件</string>
+</resources>

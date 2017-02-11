@@ -13,3 +13,8 @@ Android应用中有关Http请求的Demo
 1、部署之后用浏览器访问http://localhost:端口/web/upload.jsp可进行测试<br/>
 2、Android应用上传的服务器路径：http://IP:端口/web/servlet/UploadFileServlet<br/>
 <br/>
+##DownloadDemo演示了文件下载的功能
+1、下载网络图片<br/>
+2、下载Html<br/>
+3、下载文件（保存在SD卡根路径）<br/>
+<br/>
