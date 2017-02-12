@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">XML</string>
+    <string name="start">开始解析</string>
+</resources>
