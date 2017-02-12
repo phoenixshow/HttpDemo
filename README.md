@@ -18,3 +18,7 @@ Android应用中有关Http请求的Demo
 2、下载Html<br/>
 3、下载文件（保存在SD卡根路径）<br/>
 <br/>
+##AsyncTaskDemo演示了AsyncTask的基本用法
+1、Model app 演示了主线程阻塞会导致ANR<br/>
+2、Module UpdateProgressBar模拟网络访问，利用AsyncTask更新进度条<br/>
+<br/>

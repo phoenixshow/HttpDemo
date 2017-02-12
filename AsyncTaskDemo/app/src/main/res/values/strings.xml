@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AsyncTaskDemo</string>
+    <string name="net_operate">网络操作</string>
+    <string name="print">输出信息</string>
+</resources>
