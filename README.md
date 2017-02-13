@@ -27,3 +27,8 @@ Android应用中有关Http请求的Demo
 2、DOM解析<br/>
 3、PULL解析<br/>
 <br/>
+##Json演示了Json的构建与解析
+1、JSONArray、JSONObject构建与解析Json<br/>
+2、JsonReader解析Json<br/>
+3、Gson构建与解析Json（注解、容错机制）<br/>
+<br/>
