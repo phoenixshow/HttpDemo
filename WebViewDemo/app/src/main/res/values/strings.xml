@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WebViewDemo</string>
+    <string name="back">后退</string>
+    <string name="forward">前进</string>
+</resources>

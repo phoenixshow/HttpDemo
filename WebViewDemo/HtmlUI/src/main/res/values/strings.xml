@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HtmlUI</string>
+    <string name="permisstion_denied">授权已拒绝</string>
+    <string name="permisstion_obtained">权限已获取</string>
+</resources>

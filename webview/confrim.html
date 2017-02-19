@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function clear1()
+{
+ if(confirm("确定要清空数据吗？"))
+ {
+ document.main.text1.value="";
+ }
+}
+</script>
+</head>
+<boty>
+<form name="main">
+<input type="text" name="text1"/>
+<input type="button" name="submit" value="数据清空" onclick="return clear1()"/>
+</form>
+</body>
+</html>

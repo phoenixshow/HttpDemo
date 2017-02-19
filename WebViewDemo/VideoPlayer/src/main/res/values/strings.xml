@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">VideoPlayer</string>
+    <string name="loading_video">拼命加载视频中……</string>
+</resources>

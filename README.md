@@ -10,7 +10,7 @@ Android应用中有关Http请求的Demo
 2、从设备选择一个文件，再上传到服务器端<br/>
 <br/>
 ##web项目是文件上传的服务器端
-1、部署之后用浏览器访问http://localhost:端口/web/upload.jsp可进行测试<br/>
+1、部署在Tomcat之后用浏览器访问http://localhost:端口/web/upload.jsp可进行测试<br/>
 2、Android应用上传的服务器路径：http://IP:端口/web/servlet/UploadFileServlet<br/>
 <br/>
 ##DownloadDemo演示了文件下载的功能
@@ -31,4 +31,13 @@ Android应用中有关Http请求的Demo
 1、JSONArray、JSONObject构建与解析Json<br/>
 2、JsonReader解析Json<br/>
 3、Gson构建与解析Json（注解、容错机制）<br/>
+<br/>
+##WebViewDemo演示了WebView的基本用法
+1、Model app 演示了WebView、WebViewClient、WebSettings等用法<br/>
+2、Module WebChromClient 演示了WebChromClient的基本用法<br/>
+3、Module HtmlUI 演示了将服务器网页作为界面，展示联系人列表的应用<br/>
+4、Module VideoPlayer 演示了使用WebView播放H5视频，及全屏方案<br/>
+<br/>
+##webview项目是WebViewDemo的服务器端
+部署在Tomcat之后用浏览器访问http://localhost:端口/webview/xxx.html可进行测试<br/>
 <br/>
