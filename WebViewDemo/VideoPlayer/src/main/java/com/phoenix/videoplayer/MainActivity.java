@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -77,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
 //        webView.reload();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        webView.removeAllViews();
+        webView.destroy();
+        webView = null;
+    }
+
     /** 展示网页界面 **/
     public void initWebView() {
         WebSettings webSettings = webView.getSettings();
@@ -101,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         webView.setWebChromeClient(new WebChromeClient() {
             private View mVideoProgressView;
+            private Bitmap mVideoDefaltPoster;
 
             //播放视频时，在第一帧呈现之前，需要花一定的时间来进行数据缓冲。ChromeClient可以使用这个函数来提供一个在数据缓冲时显示的视图。 例如,ChromeClient可以在缓冲时显示一个转轮动画
             @Override
@@ -112,6 +123,17 @@ public class MainActivity extends AppCompatActivity {
                 return mVideoProgressView;
             }
 
+            //设置海报图片
+            @Override
+            public Bitmap getDefaultVideoPoster() {
+                if (mVideoDefaltPoster == null) {
+                    mVideoDefaltPoster = BitmapFactory.decodeResource(getResources(),
+                            R.drawable.jxwy);
+                }
+                return mVideoDefaltPoster;
+            }
+
+            //将网页中的标题设置为Title
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 MainActivity.this.setTitle(title);
