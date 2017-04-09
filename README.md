@@ -21,6 +21,7 @@
 ##AsyncTaskDemo演示了AsyncTask的基本用法
 1. Model app 演示了主线程阻塞会导致ANR
 2. Module UpdateProgressBar模拟网络访问，利用AsyncTask更新进度条
+3. Module DownloadPicture使用LruCache、AsyncTask实现批量图片的加载与内存缓存
     
 ##XML演示了三种XML文件的解析方法
 1. SAX解析
