@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">DownloadDemo</string>
 
+    <string name="permisstion_grant">已授权</string>
+    <string name="permisstion_deny">拒绝授权</string>
+
     <string name="download_mg">下载图片</string>
     <string name="download_tml">下载Html</string>
     <string name="download_file">下载文件</string>
