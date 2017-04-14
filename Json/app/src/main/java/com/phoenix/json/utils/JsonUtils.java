@@ -17,6 +17,10 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -107,12 +111,6 @@ public class JsonUtils {
 		}
 	}
 
-
-
-
-
-
-
 	/**
 	 * 使用GSON生成JSON
 	 */
@@ -160,6 +158,24 @@ public class JsonUtils {
 		return users;
 	}
 
+	/**
+	 * 使用自定义TypeAdapter容错解析
+	 * @param jsonData
+	 */
+	public void parseByCustomTypeAdapter(String jsonData){
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(User.class, new JsonUtils.UserTypeAdapter()).create();
+		try {
+			User user = gson.fromJson(jsonData, User.class);
+			Log.e("TAG", "------>自定义adapter 解析:" + user);
+		} catch (JsonParseException e) {//java.lang.NumberFormatException: empty String
+			Log.e("TAG", "------>自定义adapter 异常:" + e);
+		}
+	}
+
+	/**
+	 * 自定义TypeAdapter，用于容错解析
+	 */
 	public static class UserTypeAdapter extends TypeAdapter<User> {
 		@Override
 		public void write(JsonWriter out, User value) throws IOException {
@@ -190,5 +206,33 @@ public class JsonUtils {
 			in.endObject();
 			return user;
 		}
+	}
+
+	/**
+	 * 全局注册某个类型的解析处理
+	 * @param jsonData
+	 */
+	public List<User> parseByGlobalRegister(String jsonData){
+		JsonDeserializer<Integer> jsonDeserializer = new JsonDeserializer<Integer>() {
+			@Override
+			public Integer deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+				try {
+					return json.getAsInt();
+				} catch (NumberFormatException e) {
+					return 0;
+				}
+			}
+		};
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(int.class, jsonDeserializer)
+				.create();
+		List<User> list = new ArrayList<>();
+		try {
+			list = gson.fromJson(jsonData, new TypeToken<ArrayList<User>>(){}.getType());
+			Log.e("TAG", "------>  JsonDeserializer<Integer> 解析:" + list.size());
+		} catch (Exception e) {
+			Log.e("TAG", "------>  JsonDeserializer<Integer> 解析异常:" + e);
+		}
+		return list;
 	}
 }

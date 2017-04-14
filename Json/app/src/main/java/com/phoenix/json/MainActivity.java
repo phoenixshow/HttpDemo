@@ -13,15 +13,17 @@ import com.phoenix.json.utils.JsonUtils;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     //	[{"name":"张三","age":20},{"name":"李四","age":30}]
-//    String jsonData1 = "[{\"name\":\"张三\",\"age\":20},{\"name\":\"李四\",\"age\":30}]";
-//	String jsonData2 = "{\"name\":\"张三\",\"age\":20}";
-//    String jsonData3 = "[{\"name\":\"张三\",\"age\":20,\"new\":true},{\"name\":\"李四\",\"age\":30,\"new\":false}]";
-//	String jsonData4 = "{name=张三,age=20}";
-//    String jsonData5 = "[{name=张三,age=20},{name=李四,age=30}]";
+    String jsonData1 = "[{\"name\":\"张三\",\"age\":20},{\"name\":\"李四\",\"age\":30}]";
+	String jsonData2 = "{\"name\":\"张三\",\"age\":20}";
+    String jsonData3 = "[{\"name\":\"张三\",\"age\":20,\"new\":true},{\"name\":\"李四\",\"age\":30,\"new\":false}]";
+	String jsonData4 = "{name=张三,age=20}";
+    String jsonData5 = "[{name=张三,age=20},{name=李四,age=30}]";
     String jsonData6 = "{\"name\":\"张三\",\"age\":\"\"}";
+    String jsonData7 = "[{\"name\":\"张三\",\"age\":\"\"},{\"name\":\"李四\",\"age\":\"30\"}]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,36 +34,34 @@ public class MainActivity extends AppCompatActivity {
     public void click(View view){
         JsonUtils jsonUtils = new JsonUtils();
 
-////		jsonUtils.parseJson(jsonData1);
-//		jsonUtils.parseJson(jsonData5);
+		jsonUtils.parseJson(jsonData1);
+		jsonUtils.parseJson(jsonData5);
 
-////		User user = jsonUtils.parseUserFormJson(jsonData2);
-//		User user = jsonUtils.parseUserFormJson(jsonData4);
-//        Log.e("TAG", "name--->"+user.getName());
-//        Log.e("TAG", "age--->"+user.getAge());
+//		User user = jsonUtils.parseUserFormJson(jsonData2);
+		User user = jsonUtils.parseUserFormJson(jsonData4);
+        Log.e("TAG", "name--->"+user.getName());
+        Log.e("TAG", "age--->"+user.getAge());
 
-//		LinkedList<User> users = jsonUtils.parseUserListFromJson(jsonData3);
-//		Iterator<User> iterator = users.iterator();
-//		while(iterator.hasNext()){
-//			User user = iterator.next();
-//            Log.e("TAG", "name--->"+user.getName());
-//            Log.e("TAG", "age--->"+user.getAge());
-//            Log.e("TAG", "isNew--->"+user.getIsNew());
-//		}
+		LinkedList<User> users = jsonUtils.parseUserListFromJson(jsonData3);
+		Iterator<User> iterator = users.iterator();
+		while(iterator.hasNext()){
+			User user3 = iterator.next();
+            Log.e("TAG", "name--->"+user3.getName());
+            Log.e("TAG", "age--->"+user3.getAge());
+            Log.e("TAG", "isNew--->"+user3.getIsNew());
+		}
 
-//		jsonUtils.toJson();
+		jsonUtils.toJson();
 
-//		jsonUtils.toJsonByGson();
+		jsonUtils.toJsonByGson();
 
-//        jsonUtils.parseJsonByJsonObjectAndJsonArray(jsonData1);
+        jsonUtils.parseJsonByJsonObjectAndJsonArray(jsonData1);
 
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(User.class, new JsonUtils.UserTypeAdapter()).create();
-        try {
-            User user = gson.fromJson(jsonData6, User.class);
-            Log.e("TAG", "------>自定义adapter 解析:" + user);
-        } catch (JsonParseException e) {//java.lang.NumberFormatException: empty String
-            Log.e("TAG", "------>自定义adapter 异常:" + e);
+        jsonUtils.parseByCustomTypeAdapter(jsonData6);
+
+        List<User> list = jsonUtils.parseByGlobalRegister(jsonData7);
+        for (User user7 : list) {
+            Log.e("TAG", user7.toString());
         }
     }
 }
