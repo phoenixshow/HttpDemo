@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        wv.loadUrl("file:///android_asset/index.html");
-        wv.loadUrl("http://192.168.0.101:8080/webview/index.html");
+        wv.loadUrl("file:///android_asset/index.html");
+//        wv.loadUrl("http://192.168.0.101:8080/webview/index.html");
     }
 
 
@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         public void call(String mobile){
             MainActivity.this.mobile = mobile;
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
-                // 获取wifi连接需要定位权限,没有获取权限
                 ActivityCompat.requestPermissions(MainActivity.this,new String[]{
                         Manifest.permission.CALL_PHONE,
                 },MY_PERMISSIONS_REQUEST_CALL_PHONE);
@@ -112,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressWarnings("MissingPermission")
     public void callPhone() {
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+ mobile));
         startActivity(intent);

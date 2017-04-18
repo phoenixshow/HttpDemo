@@ -2,4 +2,7 @@
     <string name="app_name">WebViewDemo</string>
     <string name="back">后退</string>
     <string name="forward">前进</string>
+
+    <string name="permisstion_grant">已授权</string>
+    <string name="permisstion_deny">拒绝授权</string>
 </resources>

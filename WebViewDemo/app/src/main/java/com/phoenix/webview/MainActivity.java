@@ -1,9 +1,13 @@
 package com.phoenix.webview;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +24,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private Button back;
@@ -29,12 +34,17 @@ public class MainActivity extends AppCompatActivity {
      * 进度条
      */
     public ProgressDialog pd;
+    private final int SDK_PERMISSION_REQUEST = 127;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getPersimmions();
+    }
+
+    private void initWebView(){
         back = (Button) findViewById(R.id.back);
         forward = (Button) findViewById(R.id.forward);
         wv = (WebView) findViewById(R.id.wv);
@@ -62,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String html = "";
+        /*String html = "";
         html += "<html>";
         	html += "<body>";
         	    html += "<a href=http://www.baidu.com>首页</a>";
@@ -77,32 +87,31 @@ public class MainActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url){
                 return false;
             }
-        });
+        });*/
 
-/*
 //        String url = "file:///mnt/sdcard/searchnoresult.html";
 //        String url = "file:///android_asset/searchnoresult.html";
-//        String url = "file:///mnt/sdcard/01.jpg";
-        String url = "http://www.baidu.com";
+//        String url = "file:///mnt/sdcard/01.png";
+//        String url = "http://www.baidu.com";
 //        String url = "https://m.baidu.com";
-//        String url = "http://www.163.com";
+        String url = "http://3g.163.com";
 //        String url = "http://192.168.0.104:8080/webview/abc.html";
 
         wv.setWebViewClient(new WebViewClient() {
             //弹出系统浏览器的解决方法
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url){
-                //返回false则使用当前的WebView加载链接，返回true则方法中代码决定如何展示
-//                view.loadUrl(url);
-//                return true;
-                return false;
+//                //返回false则使用当前的WebView加载链接，返回true则方法中代码决定如何展示
+////                view.loadUrl(url);
+////                return true;
+//                return false;
 
-//                if(Uri.parse(url).getHost().equals("m.baidu.com")){
-//                    return false;
-//                }
-//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-//                startActivity(intent);
-//                return true;
+                if(Uri.parse(url).getHost().equals("m.baidu.com")){
+                    return false;
+                }
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+                return true;
             }
 
             @Override
@@ -140,7 +149,43 @@ public class MainActivity extends AppCompatActivity {
         setting.setSupportZoom(true);
         //不使用缓存
         setting.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        wv.loadUrl(url);*/
+        wv.loadUrl(url);
+    }
+
+    @TargetApi(23)
+    private void getPersimmions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ArrayList<String> permissions = new ArrayList<>();
+            if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+
+            if (permissions.size() > 0) {
+                requestPermissions(permissions.toArray(new String[permissions.size()]), SDK_PERMISSION_REQUEST);
+            }else {
+                initWebView();
+            }
+        }else {
+            initWebView();
+        }
+    }
+
+    @TargetApi(23)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case SDK_PERMISSION_REQUEST:
+                if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    // 允许
+                    Toast.makeText(this,getString(R.string.permisstion_grant),Toast.LENGTH_SHORT).show();
+                    initWebView();
+                }else{
+                    // 不允许
+                    Toast.makeText(this,getString(R.string.permisstion_deny),Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 
     @Override
